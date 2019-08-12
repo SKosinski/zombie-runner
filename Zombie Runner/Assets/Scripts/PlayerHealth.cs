@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (health<=0)
         {
+            healthText.text = 0.ToString();
             PlayerDeath();
         }
         else
@@ -47,6 +48,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlayerDeath()
     {
-        GetComponent<DeathHandler>().HandleDeath();
+        GetComponent<EndOfGameHandler>().HandleDeath();
     }
 }

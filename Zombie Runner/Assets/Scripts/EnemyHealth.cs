@@ -26,6 +26,10 @@ public class EnemyHealth : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger("die");
         DisableMovement();
+        if (gameObject.tag == "Boss")
+        {
+            FindObjectOfType<EndOfGameHandler>().HandleWin();
+        }
     }
 
     private void DisableMovement()
