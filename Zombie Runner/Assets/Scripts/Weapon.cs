@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
 
@@ -15,8 +15,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] AmmoType ammoType;
     [SerializeField] public bool canShoot = true;
     [SerializeField] float timeBetweenShots = 0;
+    [SerializeField] Text ammoText;
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        ammoText.text = ammoSlot.GetAmmoAmount(ammoType).ToString();
+    }
+
     void Update()
     {
         if(Input.GetButtonDown("Fire1") && canShoot)
@@ -33,6 +38,7 @@ public class Weapon : MonoBehaviour
             PlayMuzzleFlash();
             ProcessRaycast();
             ammoSlot.DecreaseAmmo(ammoType);
+            ammoText.text = ammoSlot.GetAmmoAmount(ammoType).ToString();
         }
         yield return new WaitForSeconds(timeBetweenShots);
         canShoot = true;

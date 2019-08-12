@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeathHandler : MonoBehaviour
 {
-
     [SerializeField] Canvas gameOverCanvas;
 
     void Start()
@@ -19,5 +19,6 @@ public class DeathHandler : MonoBehaviour
         Cursor.visible = true;
         Time.timeScale = 0;
         FindObjectOfType<WeaponSwitcher>().enabled = false;
+        FindObjectOfType<Weapon>().enabled = false;
     }
 }

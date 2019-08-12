@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        target = FindObjectOfType<PlayerHealth>().transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
@@ -75,6 +76,6 @@ public class EnemyAI : MonoBehaviour
     {
         // Display the explosion radius when selected
         Gizmos.color = new Color(1, 1, 0, 0.75F);
-        Gizmos.DrawSphere(transform.position, chaseRange);
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
     }
 }
