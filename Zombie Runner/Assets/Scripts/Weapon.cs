@@ -16,10 +16,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] public bool canShoot = true;
     [SerializeField] float timeBetweenShots = 0;
     [SerializeField] Text ammoText;
+    [SerializeField] AudioClip gunSound;
 
     private void OnEnable()
     {
-        ammoText.text = ammoSlot.GetAmmoAmount(ammoType).ToString();
+        UpdateAmmoText();
     }
 
     void Update()
@@ -35,10 +36,11 @@ public class Weapon : MonoBehaviour
         canShoot = false;
         if (ammoSlot.GetAmmoAmount(ammoType) > 0)
         {
+            GetComponent<AudioSource>().PlayOneShot(gunSound);
             PlayMuzzleFlash();
             ProcessRaycast();
             ammoSlot.DecreaseAmmo(ammoType);
-            ammoText.text = ammoSlot.GetAmmoAmount(ammoType).ToString();
+            UpdateAmmoText();
         }
         yield return new WaitForSeconds(timeBetweenShots);
         canShoot = true;
@@ -71,4 +73,8 @@ public class Weapon : MonoBehaviour
         muzzleFlash.Play();
     }
 
+    public void UpdateAmmoText()
+    {
+        ammoText.text = ammoSlot.GetAmmoAmount(ammoType).ToString();
+    }
 }

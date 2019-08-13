@@ -7,12 +7,16 @@ using UnityEngine.AI;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int enemyHealth = 10;
+    [SerializeField] AudioClip enemyHitSFX;
+    [SerializeField] AudioClip enemyDeathSFX;
+
     bool isDead = false;
 
     public void TakeAHit(int shotPower)
     {
         if (!isDead)
         {
+            GetComponent<AudioSource>().PlayOneShot(enemyHitSFX);
             BroadcastMessage("OnDamageTaken");
             enemyHealth -= shotPower;
             if (enemyHealth <= 0)
@@ -24,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void enemyDeath()
     {
+        GetComponent<AudioSource>().PlayOneShot(enemyDeathSFX);
         GetComponent<Animator>().SetTrigger("die");
         DisableMovement();
         if (gameObject.tag == "Boss")

@@ -14,12 +14,6 @@ public class EnemyAttack : MonoBehaviour
         target = FindObjectOfType<PlayerHealth>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AttackHitEvent()
     {
         if (target == null) { return; }

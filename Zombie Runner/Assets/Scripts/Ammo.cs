@@ -22,6 +22,7 @@ public class Ammo : MonoBehaviour
     public void IncreseAmmo(AmmoType ammoType, int addedAmmo)
     {
         GetAmmoSlot(ammoType).ammoAmount += addedAmmo;
+        BroadcastMessage("UpdateAmmoText");
     }
 
     public void DecreaseAmmo(AmmoType ammoType)

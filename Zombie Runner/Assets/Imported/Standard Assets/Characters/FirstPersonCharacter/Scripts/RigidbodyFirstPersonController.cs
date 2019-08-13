@@ -4,10 +4,11 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
-    [RequireComponent(typeof (Rigidbody))]
-    [RequireComponent(typeof (CapsuleCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+
         [Serializable]
         public class MovementSettings
         {
@@ -21,27 +22,36 @@ namespace UnityStandardAssets.Characters.FirstPerson
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
 #if !MOBILE_INPUT
-            private bool m_Running;
+            public bool m_Walking;
+            public bool m_Running;
 #endif
 
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
-	            if (input == Vector2.zero) return;
+                if (input == Vector2.zero)
+                {
+                    m_Walking = false;
+                    return;
+                }
+
 				if (input.x > 0 || input.x < 0)
 				{
-					//strafe
-					CurrentTargetSpeed = StrafeSpeed;
+                    //strafe
+                    m_Walking = true;
+                    CurrentTargetSpeed = StrafeSpeed;
 				}
 				if (input.y < 0)
 				{
-					//backwards
-					CurrentTargetSpeed = BackwardSpeed;
+                    //backwards
+                    m_Walking = true;
+                    CurrentTargetSpeed = BackwardSpeed;
 				}
 				if (input.y > 0)
 				{
-					//forwards
-					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
-					CurrentTargetSpeed = ForwardSpeed;
+                    //forwards
+                    //handled last as if strafing and moving forward at the same time forwards speed should take precedence
+                    m_Walking = true;
+                    CurrentTargetSpeed = ForwardSpeed;
 				}
 #if !MOBILE_INPUT
 	            if (Input.GetKey(RunKey))
@@ -60,6 +70,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public bool Running
             {
                 get { return m_Running; }
+            }
+
+            public bool Walking
+            {
+                get { return m_Walking; }
             }
 #endif
         }
@@ -88,7 +103,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
-
 
         public Vector3 Velocity
         {
@@ -135,7 +149,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = true;
             }
         }
-
 
         private void FixedUpdate()
         {

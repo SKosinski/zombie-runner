@@ -9,22 +9,20 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int health = 10;
     [SerializeField] Text healthText;
     [SerializeField] Canvas hitCanvas;
-
+    [SerializeField] AudioClip playerHitSFX;
+    [SerializeField] AudioClip playerDeathSFX;
     void Start()
     {
         healthText.text = health.ToString();
         hitCanvas.enabled = false;
     }
 
-    void Update()
-    {
-        
-    }
-
     public void LoseHealth(int amount)
     {
         health -= amount;
         healthText.text = health.ToString();
+
+        GetComponent<AudioSource>().PlayOneShot(playerHitSFX);
 
         if (health<=0)
         {
@@ -48,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlayerDeath()
     {
+        GetComponent<AudioSource>().PlayOneShot(playerDeathSFX);
         GetComponent<EndOfGameHandler>().HandleDeath();
     }
 }
