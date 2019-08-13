@@ -47,6 +47,6 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerDeath()
     {
         GetComponent<AudioSource>().PlayOneShot(playerDeathSFX);
-        GetComponent<EndOfGameHandler>().HandleDeath();
+        GetComponent<GameHandler>().HandleDeath();
     }
 }

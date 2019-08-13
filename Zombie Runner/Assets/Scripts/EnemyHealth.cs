@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
         DisableMovement();
         if (gameObject.tag == "Boss")
         {
-            FindObjectOfType<EndOfGameHandler>().HandleWin();
+            FindObjectOfType<GameHandler>().HandleWin();
         }
     }
 

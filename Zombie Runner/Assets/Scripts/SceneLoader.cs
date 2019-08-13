@@ -7,6 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public void ContinueGame()
+    {
+        FindObjectOfType<GameHandler>().ResumeGame();
+    }
+
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
