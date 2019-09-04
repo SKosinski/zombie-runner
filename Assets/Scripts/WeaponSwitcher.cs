@@ -21,7 +21,7 @@ public class WeaponSwitcher : MonoBehaviour
             if (weaponIndex == currentWeapon)
             {
                 weapon.gameObject.SetActive(true);
-                weapon.gameObject.GetComponent<Weapon>().canShoot = true;
+                weapon.gameObject.GetComponent<Weapon>().canAttack = true;
             }
             else
             {

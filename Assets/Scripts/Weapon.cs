@@ -5,18 +5,32 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
-
+    [Header("Basics")]
     [SerializeField] Camera FPCamera;
-    [SerializeField] float range = 100f;
-    [SerializeField] int shotPower = 1;
     [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] GameObject hitEffect;
     [SerializeField] Ammo ammoSlot;
     [SerializeField] AmmoType ammoType;
-    [SerializeField] public bool canShoot = true;
-    [SerializeField] float timeBetweenShots = 0;
     [SerializeField] Text ammoText;
-    [SerializeField] AudioClip gunSound;
+    [SerializeField] public bool canAttack = true;
+    [Space(10)]
+
+    [Header("Gun")]
+    [SerializeField] float shotRange = 100f;
+    [SerializeField] int shotPower = 1;
+    [SerializeField] GameObject shotEffect;
+    [SerializeField] AudioClip shotSound;
+    [SerializeField] float timeBetweenShots = 0;
+    [Space(10)]
+
+    [Header("Knife")]
+    [SerializeField] bool canStab = false;
+    [SerializeField] float stabRange = 2f;
+    [SerializeField] int stabPower = 5;
+    [SerializeField] GameObject stabEffect;
+    [SerializeField] AudioClip stabSound;
+    [SerializeField] float timeBetweenStabs = 2;
+
+
 
     private void OnEnable()
     {
@@ -25,40 +39,63 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && canShoot)
+        if(Input.GetButtonDown("Fire1") && canAttack)
         {
             StartCoroutine(Shoot());
+        }
+
+        if (Input.GetButtonDown("Fire3") && canAttack)
+        {
+            StartCoroutine(Stab());
         }
     }
 
     IEnumerator Shoot()
     {
-        canShoot = false;
+        canAttack = false;
         if (ammoSlot.GetAmmoAmount(ammoType) > 0)
         {
             if(GetComponentInChildren<Animation>())
             {
-                GetComponentInChildren<Animation>().Play();
+                GetComponentInChildren<Animation>().Play("Shoot");
             }
-            GetComponent<AudioSource>().PlayOneShot(gunSound);
+
+            GetComponent<AudioSource>().PlayOneShot(shotSound);
             PlayMuzzleFlash();
-            ProcessRaycast();
+            ProcessRaycast(shotRange, shotPower, shotEffect);
             ammoSlot.DecreaseAmmo(ammoType);
             UpdateAmmoText();
         }
         yield return new WaitForSeconds(timeBetweenShots);
-        canShoot = true;
+        canAttack = true;
     }
 
-    private void ProcessRaycast()
+    IEnumerator Stab()
+    {
+        canAttack = false;
+
+
+        if (GetComponentInChildren<Animation>())
+        {
+            GetComponentInChildren<Animation>().Play("Stab");
+        }
+
+        //TODO GetComponent<AudioSource>().PlayOneShot(stabSound);
+
+        ProcessRaycast(stabRange, stabPower, stabEffect);
+        yield return new WaitForSeconds(timeBetweenStabs);
+        canAttack = true;
+    }
+
+    private void ProcessRaycast(float range, int power, GameObject effect)
     {
         RaycastHit hit;
         if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, range))
         {
-            CreateHitImpact(hit);
+            CreateHitImpact(hit, effect);
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
             if (target == null) { return; }
-            target.TakeAHit(shotPower);
+            target.TakeAHit(power);
         }
         else
         {
@@ -66,9 +103,9 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void CreateHitImpact(RaycastHit hit)
+    private void CreateHitImpact(RaycastHit hit, GameObject effect)
     {
-        GameObject newHitEffect = Instantiate(hitEffect, hit.point, Quaternion.identity);
+        GameObject newHitEffect = Instantiate(effect, hit.point, Quaternion.identity);
         Destroy(newHitEffect, 0.1f);
     }
 
