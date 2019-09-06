@@ -15,6 +15,7 @@ public class GameHandler : MonoBehaviour
         gameOverCanvas.enabled = false;
         winCanvas.enabled = false;
         pauseCanvas.enabled = false;
+        Time.timeScale = 1;
     }
 
     private void Update()
