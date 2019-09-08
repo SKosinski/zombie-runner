@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] AmmoType ammoType;
     [SerializeField] Text ammoText;
     [SerializeField] public bool canAttack = true;
+    [SerializeField] GameObject gunModel;
     [Space(10)]
 
     [Header("Gun")]
@@ -30,11 +31,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] AudioClip stabSound;
     [SerializeField] float timeBetweenStabs = 2;
 
-
-
     private void OnEnable()
     {
         UpdateAmmoText();
+        if (GetComponentInChildren<Animation>())
+        {
+            GetComponentInChildren<Animation>().Play("Idle");
+        }
     }
 
     void Update()
@@ -44,7 +47,7 @@ public class Weapon : MonoBehaviour
             StartCoroutine(Shoot());
         }
 
-        if (Input.GetButtonDown("Fire3") && canAttack)
+        if (Input.GetButtonDown("Fire3") && canStab)
         {
             StartCoroutine(Stab());
         }

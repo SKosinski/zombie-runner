@@ -55,10 +55,6 @@ public class WeaponSwitcher : MonoBehaviour
         {
             currentWeapon = 1;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentWeapon = 2;
-        }
     }
 
     private void ProcessScrollWheel()

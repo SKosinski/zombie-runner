@@ -43,6 +43,37 @@ public class MovementHandler : MonoBehaviour
     void Update()
     {
         movementSound();
+        HeadBob();
     }
 
+    private void HeadBob()
+    {
+        if (rigidbodyFPC.Jumping == true)
+        {
+            GetComponent<Animator>().SetBool("isJumping", true);
+        }
+
+        else
+        {
+            GetComponent<Animator>().SetBool("isJumping", false);
+        }
+
+        if (rigidbodyFPC.movementSettings.m_Running && rigidbodyFPC.movementSettings.m_Walking)
+        {
+            GetComponent<Animator>().SetBool("isRunning", true);
+            GetComponent<Animator>().SetBool("isWalking", false);
+        }
+
+        else if (!rigidbodyFPC.movementSettings.m_Running && rigidbodyFPC.movementSettings.m_Walking)
+        {
+            GetComponent<Animator>().SetBool("isWalking", true);
+            GetComponent<Animator>().SetBool("isRunning", false);
+        }
+
+        else if (!rigidbodyFPC.movementSettings.m_Running && !rigidbodyFPC.movementSettings.m_Walking)
+        {
+            GetComponent<Animator>().SetBool("isWalking", false);
+            GetComponent<Animator>().SetBool("isRunning", false);
+        }
+    }
 }
