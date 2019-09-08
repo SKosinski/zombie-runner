@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
             StartCoroutine(Shoot());
         }
 
-        if (Input.GetButtonDown("Fire3") && canAttack)
+        if (Input.GetButtonDown("Fire3") && canStab)
         {
             StartCoroutine(Stab());
         }

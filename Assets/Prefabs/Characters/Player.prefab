@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4553948954601655076}
   - component: {fileID: 4360568651006889549}
   - component: {fileID: 2153030617622590275}
+  - component: {fileID: 3713067741916421492}
   m_Layer: 0
   m_Name: MovementHandler
   m_TagString: Untagged
@@ -28,9 +29,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3579714088345095279}
   m_Father: {fileID: 3579714088345095277}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &4360568651006889549
 AudioSource:
@@ -142,6 +144,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkingSFX: {fileID: 8300000, guid: 49f48590ff6f2044d907d25fe215c0fc, type: 3}
   runningSFX: {fileID: 8300000, guid: 1dbd07e13f97f544d8c8200f513d6920, type: 3}
+--- !u!95 &3713067741916421492
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134592445799934377}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &7036920646511165810
 AudioSource:
   m_ObjectHideFlags: 0
@@ -301,7 +322,6 @@ Transform:
   m_LocalPosition: {x: 27.68, y: 1.06, z: -18.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3579714088345095279}
   - {fileID: 4553948954601655076}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -389,6 +409,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    playerStamina: {fileID: 0}
     CurrentTargetSpeed: 8
     m_Walking: 0
     m_Running: 0
@@ -579,14 +600,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3579714088344932427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3579714088771010220}
   - {fileID: 593328547531485281}
   - {fileID: 5186008046719854577}
-  m_Father: {fileID: 3579714088345095277}
+  m_Father: {fileID: 4553948954601655076}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3579714088346702447

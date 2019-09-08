@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Stamina : MonoBehaviour
 {
@@ -9,16 +10,18 @@ public class Stamina : MonoBehaviour
 
     [SerializeField] public bool canRun = true;
 
+    RigidbodyFirstPersonController rigidBodyFPC;
     // Start is called before the first frame update
+
     void Start()
     {
-        
+        rigidBodyFPC = GetComponent<RigidbodyFirstPersonController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && rigidBodyFPC.Velocity.magnitude > 0 && rigidBodyFPC.Grounded && canRun) //if player is moving and left shift is clicked
         {
             DecreaseTimer();
         }
