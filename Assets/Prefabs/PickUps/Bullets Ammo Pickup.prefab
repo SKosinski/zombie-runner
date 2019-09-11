@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afafa7ca2af6284f8d312b746f74ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoAmount: 5
+  ammoAmount: 10
   ammoType: 0
   ammoPickUpSFX: {fileID: 8300000, guid: 1fae3a8a92aae14468232c2c5f48c269, type: 3}
 --- !u!65 &2119275021308056444
